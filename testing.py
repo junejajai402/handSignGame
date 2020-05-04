@@ -7,7 +7,7 @@ val=0
 score=[0,0]
 while True:
     g = input("Enter 1.Rock 2.Paper 3.Scissor: ")
-    g.lower()
+    g = g.lower()
     if g=='rock':
         val=1
     elif g=='paper':
@@ -16,6 +16,8 @@ while True:
         val=3
 
     compgen_Val=random.choice(container)
+    #print("compgen value %2d" %(compgen_Val))
+    #print("Entered value %2d" %(val))
     if val==3 and compgen_Val==1:
         score[1]=score[1]+1
         print("You lose this round. Rock beats Scissors")
@@ -34,4 +36,8 @@ while True:
 
     if score[0]==5 or score[1]==5:
         break
-print("the final score is computer: %2d player: %2d" %(score[1],score[0]))
+print("\nThe final score is computer: %2d player: %2d" %(score[1],score[0]))
+if score[0]>score[1]:
+    print("\nPlayer Wins. Good job")
+else:
+    print("\nComputer Wins. Better luck next time")
