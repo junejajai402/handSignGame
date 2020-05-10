@@ -1,4 +1,13 @@
 import random
+from pymongo import MongoClient
+from datetime import datetime
+
+client = MongoClient()
+#client = MongoClient('localhost', 27017)
+client = MongoClient('mongodb://localhost:27017')
+
+db = client['pymongo_test']
+posts = db.dataCollection
 
 container=[1,2,3]
 resolvers=['Rock','Paper','Scissors']
@@ -37,7 +46,18 @@ while True:
     if score[0]==5 or score[1]==5:
         break
 print("\nThe final score is computer: %2d player: %2d" %(score[1],score[0]))
+winner=0
 if score[0]>score[1]:
     print("\nPlayer Wins. Good job")
+    winner=1
 else:
     print("\nComputer Wins. Better luck next time")
+
+now=datetime.now()
+posts_data={
+'compScore': score[1],
+'playScore': score[0],
+'playWin': winner,
+'date': now.strftime("%m/%d/%Y, %H:%M:%S")
+}
+posts.insert_one(posts_data)
