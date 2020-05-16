@@ -5,7 +5,7 @@ Packages needed:
 PyMongo
 
 Also will need to install mongodb-community on your system.
-This can be installed through homebrew tap
+This can be installed through homebrew tap (https://github.com/mongodb/homebrew-brew)
 
 to run the server:
 brew services start mongodb-community@4.2
