@@ -3,6 +3,7 @@ A simple Rock Paper Scissors game for me to get familiar with programming in pyt
 
 Packages needed:
 PyMongo
+matplotlib
 
 Also will need to install mongodb-community on your system.
 This can be installed through homebrew tap (https://github.com/mongodb/homebrew-brew)

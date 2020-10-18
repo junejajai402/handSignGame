@@ -1,6 +1,7 @@
 import random
 from pymongo import MongoClient
 from datetime import datetime
+import matplotlib.pyplot as plt
 
 client = MongoClient()
 #client = MongoClient('localhost', 27017)
@@ -17,7 +18,8 @@ resolvers=['Rock','Paper','Scissors']
 val=0
 score=[0,0]
 
-g = input("Welcome to Rock Paper Scissors. Do you want to 1.See History or 2.Play the game: ")
+g = input("Welcome to Rock Paper Scissors. Do you want to 1.See History, 2.Play the game or 3.To see graphical "
+          "metrics: ")
 g = int(g)
 if g==1:
     print("You have chosen to see a history of all your plays")
@@ -89,5 +91,25 @@ elif g==2:
     'date': now.strftime("%m/%d/%Y, %H:%M:%S")
     }
     posts.insert_one(posts_data)
+elif g == 3:
+    print("Historical number of wins to losses by player in a bar graph")
+    posts_data = list(posts.find())
+    print(posts_data)
+    totNum = len(posts_data)
+    print("Number of games played: %2d" % (totNum))
+    numWins = len(list(posts.find({"playWin": 1})))
+    print("Number of won games: %d" % (numWins))
+    print("Number of lost games: %d" % (totNum - numWins))
+    print()
+    fig = plt.figure(figsize = (10, 5))
+    # ax = fig.add_axes([0,0,1,1])
+    scores = [numWins, totNum-numWins]
+    labels = ["Player Wins", "Computer Wins"]
+    plt.bar(labels, scores)
+    plt.xlabel("Player Wins")
+    plt.ylabel("Computer Wins")
+    plt.title("Categorical representation of winners")
+    plt.show()
 else:
     print("We have not developed beyond this yet. Thank You for your continued support and patience")
+
